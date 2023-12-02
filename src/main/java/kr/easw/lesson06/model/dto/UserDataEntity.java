@@ -8,20 +8,34 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 public class UserDataEntity {
     @Id
     @GeneratedValue
     private long id;
-
-    @Getter
     private String userId;
-
-    @Getter
     private String password;
-
-    @Getter
     private boolean isAdmin;
 
+    public UserDataEntity() {
+    }
+
+    public UserDataEntity(final long id, final String userId, final String password, final boolean isAdmin) {
+        this.id = id;
+        this.userId = userId;
+        this.password = password;
+        this.isAdmin = isAdmin;
+    }
+
+    public String getUserId() {
+        return this.userId;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public boolean isAdmin() {
+        return this.isAdmin;
+    }
 }
+

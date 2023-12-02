@@ -1,22 +1,30 @@
-<html>
-    <body>
-        <h1> 관리자 대시보드 <a href="/dashboard">(유저 대시보드로 이동)</a></h1>
-        <h3><a href="/management"> 유저 관리 페이지로 이동하기 </a></h3>
-        <form action="/api/v1/data/admin/add" method="post">
-            <!-- form을 통해 데이터를 전송할 때, method는 post로 설정하고, action은 /api/v1/data/add로 설정합니다. -->
-            <!-- 이 값들은 Spring에서 @PostMapping("/api/v1/data/add")로 설정한 값과 일치해야 합니다. -->
-            업로드할 내용: <input type="text" id="text" name="text"/> <br/>
-            <input type="submit" value="업로드"/>
-        </form>
-        <!-- 업로드 성공 시, /dashboard?success=true로 리다이렉트합니다. -->
-        <span id="message"> </span>
-    </body>
-    <script>
-        // URLSearchParams는 URL의 쿼리 파라미터를 가져오는 객체입니다.
-        let params = new URLSearchParams(window.location.search);
-        // 쿼리 파라미터 중 success가 true일 경우, 미리 설정해둔 span에 메시지를 삽입합니다.
-        if (params.get("success") != null) {
-            document.getElementById("message").innerHTML = "새 텍스트를 업로드하였습니다.";
-        }
-    </script>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 대시보드</title>
+</head>
+<body>
+<!-- 대시보드 제목 및 링크 -->
+<h1> 관리자 대시보드 <a href="/dashboard">(유저 대시보드로 이동)</a></h1>
+<h3><a href="/management"> 유저 관리 페이지로 이동하기 </a></h3>
+
+<!-- 데이터 업로드 폼 -->
+<form action="/api/v1/data/admin/add" method="post">
+    업로드할 내용: <input type="text" id="text" name="text"/> <br/>
+    <input type="submit" value="업로드"/>
+</form>
+
+<!-- 업로드 성공 메시지 -->
+<span id="message">
+        <!-- URL 쿼리 파라미터 'success'가 true인 경우 메시지 표시 -->
+        <script>
+            if (new URLSearchParams(window.location.search).get("success") !== null) {
+                document.getElementById("message").innerHTML = "새 텍스트를 업로드하였습니다.";
+            }
+        </script>
+    </span>
+</body>
 </html>

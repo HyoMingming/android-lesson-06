@@ -1,13 +1,39 @@
-<html>
-    <body>
-        <h1> 사용자 대시보드 <a href="/admin">(관리자 대시보드로 이동)</a></h1>
-        <span> REST 요청을 보내 파일 목록을 불러오고, 다음 li에 다운로드 링크와 함께 삽입하십시오. </span>
-        <span>REST로 데이터 목록을 불러오는 예제는 <a href="https://github.com/java-lesson-cbnu/android-lesson-01">1번 예제 레포지토리</a>를 참고하세요. </span>
-        <ul id="dataList">
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>사용자 대시보드</title>
+</head>
+<body>
+<!-- 대시보드 제목 및 링크 -->
+<h1> 사용자 대시보드 <a href="/admin">(관리자 대시보드로 이동)</a></h1>
 
-        </ul>
-    </body>
-    <script>
-        // 이곳에 코드를 구현하십시오.
-    </script>
+<!-- 설명 문구 -->
+<span> REST 요청을 보내 파일 목록을 불러오고, 다음 li에 다운로드 링크와 함께 삽입하십시오. </span>
+<span>REST로 데이터 목록을 불러오는 예제는 <a href="https://github.com/java-lesson-cbnu/android-lesson-01">1번 예제 레포지토리</a>를 참고하세요. </span>
+
+<!-- 데이터 목록을 표시할 리스트 -->
+<ul id="dataList"></ul>
+
+<script>
+    // 데이터 목록을 비동기로 불러와서 표시하는 함수
+    async function loadDataList() {
+        const response = await fetch('/api/v1/data/list');
+        const result = await response.json();
+
+        console.log(result);
+
+        for (let data of result) {
+            let li = document.createElement("li");
+            li.appendChild(document.createTextNode(data.text));
+            document.getElementById("dataList").appendChild(li);
+        }
+    }
+
+    // 페이지 로드 시 데이터 목록을 불러오기
+    window.onload = loadDataList;
+</script>
+</body>
 </html>
